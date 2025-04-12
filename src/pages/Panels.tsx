@@ -7,7 +7,7 @@ export interface Panel {
 }
 
 // This function will be passed to NavigationNodes to handle navigation
-export type NavigateFunction = (targetId: string) => void;
+export type NavigateFunction = (targetId: string, destinationId?: string) => void;
 
 // Factory function to create panels with consistent structure
 export const createPanel = (id: string, title: string, content: ReactNode): Panel => {

@@ -44,71 +44,91 @@ const Connection: React.FC<ConnectionProps> = ({
       
       if (!sourceNode || !targetNode || !pathRef.current || !polygonRef.current) return;
       
+      const viewport = document.querySelector('.viewport');
+      if (!viewport) return;
       const sourceRect = sourceNode.getBoundingClientRect();
       const targetRect = targetNode.getBoundingClientRect();
+      const viewportRect = viewport.getBoundingClientRect();
       
       // Determine if target is to the right or left of source
       const isTargetToRight = targetRect.left > sourceRect.right;
       const isTargetToLeft = targetRect.right < sourceRect.left;
-      const isTargetAbove = targetRect.bottom < sourceRect.top;
-      const isTargetBelow = targetRect.top > sourceRect.bottom;
       
       // Calculate connection points from the edges
       let sourceX, sourceY, targetX, targetY;
       
       // Determine edge points based on relative positions
       if (isTargetToRight) {
-        sourceX = sourceRect.right; // Right edge of source
+        sourceX = sourceRect.right - viewportRect.left; // Right edge of source
         sourceY = sourceRect.top + sourceRect.height / 2;
-        targetX = targetRect.left; // Left edge of target
+        targetX = targetRect.left - viewportRect.left ; // Left edge of target witpx offset
         targetY = targetRect.top + targetRect.height / 2;
       } else if (isTargetToLeft) {
-        sourceX = sourceRect.left; // Left edge of source
+        sourceX = sourceRect.left - viewportRect.left; // Left edge of source
         sourceY = sourceRect.top + sourceRect.height / 2;
-        targetX = targetRect.right; // Right edge of target
+        targetX = targetRect.right - viewportRect.left ; // Right edge of target witpx offset
         targetY = targetRect.top + targetRect.height / 2;
-      } else if (isTargetAbove) {
-        sourceX = sourceRect.left + sourceRect.width / 2;
-        sourceY = sourceRect.top; // Top edge of source
-        targetX = targetRect.left + targetRect.width / 2;
-        targetY = targetRect.bottom; // Bottom edge of target
       } else {
-        sourceX = sourceRect.left + sourceRect.width / 2;
-        sourceY = sourceRect.bottom; // Bottom edge of source
-        targetX = targetRect.left + targetRect.width / 2;
-        targetY = targetRect.top; // Top edge of target
+        sourceX = sourceRect.left - viewportRect.left;
+        sourceY = sourceRect.top + sourceRect.height / 2; 
+        targetX = targetRect.left - viewportRect.left ;
+        targetY = targetRect.top + targetRect.height / 2; // Top edge of target witpx offset
       }
       
       // Calculate the midpoint for the path with an offset
-      const offset = 30; // Distance the line extends outward before turning
       let midX1, midY1, midX2, midY2;
       
       if (isTargetToRight || isTargetToLeft) {
-        // Horizontal offset first
-        midX1 = sourceX + (isTargetToRight ? offset : -offset);
+        // Use a point halfway between source and target for smoother curves
+        midX1 = sourceX + (targetX - sourceX) * 0.33; // First control point at 33%
         midY1 = sourceY;
-        midX2 = targetX + (isTargetToRight ? -offset : offset);
+        midX2 = sourceX + (targetX - sourceX) * 0.67; // Second control point at 67%
         midY2 = targetY;
       } else {
-        // Vertical offset first
-        midX1 = sourceX;
-        midY1 = sourceY + (isTargetBelow ? offset : -offset);
-        midX2 = targetX;
-        midY2 = targetY + (isTargetBelow ? -offset : offset);
+        // For vertical connections, create outward control points
+        const horizontalDistance = Math.abs(sourceX - targetX);
+        const outwardOffset = Math.max(400, horizontalDistance * 1.5); // Create significant outward curve
+        
+        // First control point - go outward from source
+        midX1 = sourceX <= targetX ? sourceX - outwardOffset : sourceX + outwardOffset;
+        midY1 = sourceY + (targetY - sourceY) * 0.33;
+        
+        // Second control point - come inward to target
+        midX2 = targetX <= sourceX ? targetX - outwardOffset : targetX + outwardOffset;
+        midY2 = sourceY + (targetY - sourceY) * 0.67;
       }
       
-      // Create the path for the connection
-      const pathData = `M ${sourceX} ${sourceY} L ${midX1} ${midY1} L ${midX2} ${midY2} L ${targetX} ${targetY}`;
+      // Create the path for the connection with rounder curves
+      // Increase the curvature radius for smoother corners
+      const curveRadius = 30; // Increased from 15 for rounder corners
+      
+      // Calculate control points for the curves
+      let pathData;
+      
+      // Start path at source point
+      pathData = `M ${sourceX} ${sourceY} `;
+      
+      // Create a smooth cubic bezier curve for the entire path
+      if (isTargetToRight || isTargetToLeft) {
+        // For horizontal connections, use a smooth S-curve
+        pathData += `C ${midX1} ${midY1}, ${midX2} ${midY2}, ${targetX} ${targetY}`;
+      } else {
+        // For vertical connections, use the outward-extending curve
+        pathData += `C ${midX1} ${midY1}, ${midX2} ${midY2}, ${targetX} ${targetY}`;
+      }
       
       // Update DOM directly instead of using React state
       pathRef.current.setAttribute('d', pathData);
       
-      // Update the arrow position
+      // Update the arrow position and orientation
       let angle;
-      if (isTargetToRight) angle = 0;      // Pointing right
-      else if (isTargetToLeft) angle = 180; // Pointing left
-      else if (isTargetAbove) angle = 270;  // Pointing up
-      else angle = 90;                      // Pointing down
+      if (isTargetToLeft) {
+        angle = 180; // Pointing left
+      } else if (isTargetToRight) {
+        angle = 0; // Pointing right
+      } else {
+        angle = 80
+      }
       
       polygonRef.current.setAttribute('transform', 
         `translate(${targetX},${targetY}) rotate(${angle})`
@@ -122,7 +142,7 @@ const Connection: React.FC<ConnectionProps> = ({
           y1: sourceY,
           x2: targetX,
           y2: targetY,
-          midX: midX1, // Just store the first midpoint for state (not used in rendering)
+          midX: midX1,
           midY: midY1
         });
         lastUpdateRef.current = now;
@@ -198,7 +218,7 @@ const Connection: React.FC<ConnectionProps> = ({
         />
         <polygon 
           ref={polygonRef}
-          points="0,-5 10,0 0,5"
+          points="-8,-4 0,0 -8,4"
           fill={color}
         />
       </svg>
@@ -234,7 +254,7 @@ const Connection: React.FC<ConnectionProps> = ({
       />
       <polygon 
         ref={polygonRef}
-        points="0,-5 10,0 0,5"
+        points="-8,-4 0,0 -8,4"
         fill={color}
       />
     </svg>

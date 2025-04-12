@@ -1,15 +1,17 @@
-/* viewport: your “window” */
+/* viewport: your "window" */
 .viewport {
     position: relative;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    background-color: #fff8e1; /* Light yellow background similar to bike poster */
   }
   
   /* canvas: flex‑row of full‑screen panels */
   .canvas {
     display: flex;
     height: 100vh;
+    background-color: #fff8e1; /* Light yellow background */
   }
   
   /* each panel is exactly one viewport, scrolling internally */
@@ -19,19 +21,39 @@
     overflow-y: auto;
     box-sizing: border-box;
     padding: 20px;
+    background-color: #fff8e1; /* Light yellow background */
   }
   
   /* simple fixed nav */
   .nav {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    z-index: 100;
+    display: flex;
+    padding: 10px 20px;
+    background-color: #fff5d6; /* Slightly darker yellow for contrast */
+    border-bottom: 1px solid #e6d9a3;
   }
   
   .nav button {
-    margin-right: 8px;
-    padding: 6px 12px;
+    background: none;
+    border: none;
+    padding: 8px 15px;
+    margin-right: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+
+  .nav button:hover {
+    background-color: rgba(0, 102, 204, 0.1);
+  }
+
+  .nav button.active {
+    background-color: #0066cc;
+    color: white;
+  }
+
+  .nav button:disabled {
+    opacity: 0.6;
+    cursor: default;
   }
 
   .nav-node {
@@ -42,6 +64,7 @@
     padding: 0 4px;
     transition: all 0.2s ease;
     position: relative; /* For connection positioning */
+    font-size: 1.1rem;
   }
 
   .nav-node:hover {
@@ -52,13 +75,22 @@
 
   .destination-node {
     position: relative;
-    padding: 4px;
-    border-left: 2px solid #0066cc;
-    background-color: rgba(0, 102, 204, 0.05);
-    border-radius: 2px;
-    display: block; /* Changed from inline-block to block */
-    margin: 1rem 0; /* Add some vertical spacing */
-    text-align: center;
+    padding: 10px 14px 10px 25px; /* Increased padding for rounded look */
+    border-left: 3px solid #0066cc; /* Slightly thicker border */
+    background-color: rgba(0, 102, 204, 0.08); /* Slightly stronger background */
+    border-radius: 12px; /* Much rounder corners */
+    display: block;
+    margin: 1.2rem 0; /* Increased vertical spacing */
+    margin-left: -20px; /* Pull the node left of the normal text margin */
+    text-align: left;
+    width: calc(100% + 20px); /* Ensure the full width still works */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
+  }
+
+  .destination-node p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-right: 1rem;
   }
 
   /* Connection line animations */
@@ -75,10 +107,152 @@
     padding: 2rem;
     display: flex;
     flex-direction: column;
+    background-color: #fff8e1; /* Maintain yellow background */
   }
 
   /* Updated styles for page content */
   .page-content {
     margin-top: 1rem;
-    text-align: center;
+    text-align: left;
+    position: relative; /* Ensure proper positioning context for destination nodes */
+  }
+
+  .navigation-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: #fff5d6; /* Slightly darker yellow for sidebar */
+    border-right: 1px solid #e6d9a3;
+    padding: 20px;
+    overflow-y: auto;
+    z-index: 100;
+  }
+
+  .sidebar-header {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e6d9a3;
+  }
+
+  .sidebar-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+  }
+
+  .nav-tree {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .category-item {
+    margin-bottom: 10px;
+  }
+
+  .category-button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px 15px;
+    background-color: #fffbea; /* Lighter yellow for buttons */
+    border: 1px solid #e6d9a3;
+    border-radius: 8px; /* Rounder buttons to match destination nodes */
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .category-button:hover {
+    background-color: #ffeeaa;
+  }
+
+  .category-button.active {
+    background-color: #0066cc;
+    color: white;
+    border-color: #0066cc;
+  }
+
+  .child-items {
+    list-style-type: none;
+    padding-left: 20px;
+    margin-top: 5px;
+  }
+
+  .child-item {
+    margin-bottom: 5px;
+  }
+
+  .child-button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 8px 15px;
+    background-color: transparent;
+    border: none;
+    border-left: 2px solid #e6d9a3;
+    border-radius: 0;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+  }
+
+  .child-button:hover {
+    background-color: #ffeeaa;
+    border-left: 2px solid #cc9900;
+  }
+
+  .child-button.active {
+    background-color: rgba(204, 153, 0, 0.1);
+    border-left: 2px solid #cc9900;
+    color: #805500;
+    font-weight: 600;
+  }
+
+  /* Adjust the canvas container to make room for the sidebar */
+  .canvas-container {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    background-color: #fff8e1; /* Light yellow background */
+  }
+
+  /* Add these styles to support the new layout */
+
+  .layout-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    background-color: #fff8e1; /* Light yellow background */
+  }
+
+  /* Typography styles for larger paragraph content */
+  p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+  }
+
+  .page-container h1 {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .page-container h2 {
+    font-size: 1.8rem;
+    margin-top: 2rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .page-container h3 {
+    font-size: 1.5rem;
+    margin-top: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  li {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
   }

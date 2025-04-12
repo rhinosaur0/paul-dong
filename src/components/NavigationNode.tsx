@@ -2,13 +2,15 @@ import React, { useRef, useEffect } from 'react';
 
 interface NavigationNodeProps {
   targetId: string;
-  onNavigate: (targetId: string) => void;
+  destinationId: string; 
+  onNavigate: (targetId: string, destinationId?: string) => void;
   registerNode: (id: string, element: HTMLElement | null) => void;
   children: React.ReactNode;
 }
 
 const NavigationNode: React.FC<NavigationNodeProps> = ({ 
   targetId, 
+  destinationId,
   onNavigate, 
   registerNode,
   children 
@@ -16,21 +18,18 @@ const NavigationNode: React.FC<NavigationNodeProps> = ({
   const nodeRef = useRef<HTMLSpanElement>(null);
   
   useEffect(() => {
-    if (nodeRef.current) {
-      registerNode(`nav-to-${targetId}`, nodeRef.current);
-    }
-    
-    return () => {
-      registerNode(`nav-to-${targetId}`, null);
-    };
-  }, [targetId, registerNode]);
+    // No need to register navigation nodes separately as connections
+    // will now be drawn between destination nodes
+    return () => {};
+  }, []);
 
   return (
     <span 
       ref={nodeRef}
       className="nav-node"
-      onClick={() => onNavigate(targetId)}
+      onClick={() => onNavigate(targetId, destinationId)}
       data-target={targetId}
+      data-destination={destinationId}
     >
       {children}
     </span>
