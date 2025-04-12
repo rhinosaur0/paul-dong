@@ -1,0 +1,84 @@
+/* viewport: your “window” */
+.viewport {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  /* canvas: flex‑row of full‑screen panels */
+  .canvas {
+    display: flex;
+    height: 100vh;
+  }
+  
+  /* each panel is exactly one viewport, scrolling internally */
+  .panel {
+    flex: 0 0 100vw;
+    height: 100vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding: 20px;
+  }
+  
+  /* simple fixed nav */
+  .nav {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 100;
+  }
+  
+  .nav button {
+    margin-right: 8px;
+    padding: 6px 12px;
+  }
+
+  .nav-node {
+    color: #0066cc;
+    text-decoration: underline;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0 4px;
+    transition: all 0.2s ease;
+    position: relative; /* For connection positioning */
+  }
+
+  .nav-node:hover {
+    color: #004080;
+    background-color: rgba(0, 102, 204, 0.1);
+    border-radius: 2px;
+  }
+
+  .destination-node {
+    position: relative;
+    padding: 4px;
+    border-left: 2px solid #0066cc;
+    background-color: rgba(0, 102, 204, 0.05);
+    border-radius: 2px;
+    display: block; /* Changed from inline-block to block */
+    margin: 1rem 0; /* Add some vertical spacing */
+    text-align: center;
+  }
+
+  /* Connection line animations */
+  @keyframes dash {
+    to {
+      stroke-dashoffset: -20;
+    }
+  }
+
+  .page-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Updated styles for page content */
+  .page-content {
+    margin-top: 1rem;
+    text-align: center;
+  }
