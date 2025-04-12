@@ -272,10 +272,14 @@ const PairwiseComparison: React.FC = () => {
       
       <p>In Praxis I, we deployed the pairwise matrix across three key usability metrics—removal time, attaching time, and implementation time—all of which directly support our primary DfX of Usability. We gathered insight that the HoopNet emerged victorious in two of the three critical evaluation metrics: time to attach a hanger and time to remove a hanger.</p>
       
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px', marginBottom: '20px' }}>
-        <img src={pairwise1} alt="Pairwise Comparison Example 1" style={{ width: '30%' }} />
-        <img src={pairwise2} alt="Pairwise Comparison Example 2" style={{ width: '30%' }} />
-        <img src={pairwise3} alt="Pairwise Comparison Example 3" style={{ width: '30%' }} />
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', marginBottom: '20px', alignItems: 'center' }}>
+        <img src={pairwise1} alt="Pairwise Comparison Example 1" style={{ width: '60%' }} />
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', marginBottom: '20px', alignItems: 'center' }}>
+        <img src={pairwise2} alt="Pairwise Comparison Example 2" style={{ width: '60%' }} />
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', marginBottom: '20px', alignItems: 'center' }}>
+        <img src={pairwise3} alt="Pairwise Comparison Example 3" style={{ width: '60%' }} />
       </div>
       <DestinationNode id="pairwise-approach" registerNode={registerNode}>
           <p>The usage of pairwise comparison matrices is consistent with my perspective that we should break problems down into smaller components, and this applies to evaluation too. Instead of covering a broad range of requirements at once, we target specific ones and determine the relationships between the different designs.</p>

@@ -82,8 +82,9 @@
     display: block;
     margin: 1.2rem 0; /* Increased vertical spacing */
     margin-left: -20px; /* Pull the node left of the normal text margin */
+    margin-right: 20px; /* Add right margin to make right side shorter */
     text-align: left;
-    width: calc(100% + 20px); /* Ensure the full width still works */
+    width: calc(100% - 20px); /* Adjust width to account for right margin */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
   }
 
