@@ -101,10 +101,10 @@
   }
 
   .page-container {
-    width: 100%;
-    max-width: 800px;
+    width: 80%; /* Reduced from 90% for narrower content */
+    max-width: 750px; /* Reduced from 800px for narrower content */
     margin: 0 auto;
-    padding: 2rem;
+    padding: 2rem 3rem; /* Increased horizontal padding for more whitespace */
     display: flex;
     flex-direction: column;
     background-color: #fff8e1; /* Maintain yellow background */
@@ -113,6 +113,9 @@
   /* Updated styles for page content */
   .page-content {
     margin-top: 1rem;
+    max-width: 800px; /* Set explicit max-width for content */
+    margin-left: auto;
+    margin-right: 5rem;
     text-align: left;
     position: relative; /* Ensure proper positioning context for destination nodes */
   }

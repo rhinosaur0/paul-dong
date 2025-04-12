@@ -16,7 +16,7 @@ const NavigationSidebar: React.FC<NavigationSidebarProps> = ({ activePanel, navi
     },
     {
       id: 'bike',
-      label: 'Bike',
+      label: 'Praxis II Project',
       children: [
         { id: 'scamper', label: 'CTMF#1 Scamper' },
         { id: 'morphChart', label: 'CTMF#2 Morph Chart' },
@@ -25,7 +25,7 @@ const NavigationSidebar: React.FC<NavigationSidebarProps> = ({ activePanel, navi
     },
     {
       id: 'bridge',
-      label: 'Bridge',
+      label: 'CIV102 Bridge',
       children: [
         { id: 'stakeholders', label: 'CTMF#1 Stakeholders' },
         { id: 'referenceDesigns', label: 'CTMF#2 Reference Designs' },
@@ -34,7 +34,7 @@ const NavigationSidebar: React.FC<NavigationSidebarProps> = ({ activePanel, navi
     },
     {
       id: 'hanger',
-      label: 'Hanger',
+      label: 'Praxis I Project',
       children: [
         { id: 'dfx', label: 'CTMF#1 DfX' },
         { id: 'pairwiseComparison', label: 'CTMF#2 Pairwise Comparison' },

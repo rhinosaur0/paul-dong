@@ -176,8 +176,8 @@ const ReferenceDesigns: React.FC = () => {
       
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', marginBottom: '20px' }}>
         <img src={reference1} alt="Reference Design Example 1" style={{ width: '50%', maxWidth: '800px' }} />
-        <p>Drawing by Baron Liu, using the reference design.[5]</p>
       </div>
+      
 
       <DestinationNode id="referenceDesigns-approach" registerNode={registerNode}>
         <p>This experience validates my core position: designers shouldn't waste time reinventing fundamental principles when reliable solutions already exist. Instead, we should learn from previous work—standing on the shoulders of others' successes and avoiding their pitfalls—to accelerate innovation. Reference designs aren't just a shortcut; they're an essential tool that channels creative effort into meaningful improvements rather than rediscovery.</p>
@@ -188,10 +188,10 @@ const ReferenceDesigns: React.FC = () => {
       
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', marginBottom: '20px' }}>
         <img src={reference2} alt="Reference Design Example 2" style={{ width: '50%', maxWidth: '800px' }} />
-
       </div>
+      <p>Drawing by Baron Liu, using the reference design [5]</p>
       
-      <p>This concept should always be used. No matter what type of design space we are in, we should always look at the existing designs before thinking about progress forward. Using this principle has allowed me to both learn faster and also create more impactful projects in hackathons and in general.</p>
+      <p>Considering reference designs should always be used. No matter what type of design space we are in, we should always look at the existing designs before thinking about progress forward. Using this principle has allowed me to both learn faster and also create more impactful projects in hackathons and in general.</p>
     </PageContainer>
   );
 };
@@ -218,7 +218,8 @@ const Stakeholders: React.FC = () => {
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', marginBottom: '20px' }}>
           <img src={stakeholder} alt="Stakeholder Analysis Example" style={{ width: '70%', maxWidth: '800px' }} />
         </div>
-        
+        <p>Photo of Luke, me, and the primary stakeholder</p>
+
         <p>This concept is always important and is highly effective. We won our tutorial group's competition by withstanding the largest weight by 200N. Our bridge had no aesthetic appeal and used up all the matboard and glue, but it was the best design. I think our focus on the stakeholders was one of the keys to our success, and I believe that stakeholders should come first in any design space, because that is the only way to evaluate a design.</p>
     </PageContainer>
   );
@@ -283,8 +284,8 @@ const PairwiseComparison: React.FC = () => {
           </NavigationNode>
       </DestinationNode>
       <DestinationNode id="pairwise-measurement" registerNode={registerNode}>
-          <p>Pairwise comparison is useful when multiple concepts<NavigationNode targetId="measurementMatrix" destinationId="measurement-pairwise" onNavigate={navigate} registerNode={registerNode}>
-          already satisfy your "must‑have" requirements
+          <p>Pairwise comparison is useful when multiple concepts <NavigationNode targetId="measurementMatrix" destinationId="measurement-pairwise" onNavigate={navigate} registerNode={registerNode}>
+          already satisfy your requirements
           </NavigationNode>
           (like preventing entanglement) and you need to compare their relative strengths on secondary criteria. Rather than relying on gut feelings or unmeaningful test data, you get a coherent, quantitative ranking that illustrates trade-offs. In our case, the pairwise matrix became our best tool in defending our design choice.
           </p>
@@ -362,7 +363,7 @@ const PositionContent = () => {
 
 const BikeContent = () => {
   return (
-    <PageContainer title="Bike">
+    <PageContainer title="">
       <div className="image-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <img src={bike1} alt="Bike Part 1" style={{ width: '100%', maxWidth: '800px', marginBottom: '20px' }} />
         <img src={bike2} alt="Bike Part 2" style={{ width: '100%', maxWidth: '800px' }} />
@@ -374,7 +375,7 @@ const BikeContent = () => {
 
 const HangerContent = () => {
   return (
-    <PageContainer title="Hanger">
+    <PageContainer title="">
       <div className="image-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <img src={hanger1} alt="Hanger Part 1" style={{ width: '100%', maxWidth: '800px', marginBottom: '20px' }} />
         <img src={hanger2} alt="Hanger Part 2" style={{ width: '100%', maxWidth: '800px' }} />
@@ -386,7 +387,7 @@ const HangerContent = () => {
 
 const BridgeContent = () => {
   return (
-    <PageContainer title="Bridge">
+    <PageContainer title="">
       <div className="image-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <img src={bridge1} alt="Bridge Part 1" style={{ width: '100%', maxWidth: '800px', marginBottom: '20px' }} />
         <img src={bridge2} alt="Bridge Part 2" style={{ width: '100%', maxWidth: '800px' }} />
@@ -401,7 +402,6 @@ const ReferencesContent: React.FC = () => {
   return (
     <PageContainer title="References">
       <div style={{ padding: '20px' }}>
-        <h2>References & Further Reading</h2>
         
         <p>[1] "SCAMPER Technique: Drive Innovation & Creativity," SixSigma.us, Jul. 15, 2024. [Online]. Available: https://www.6sigma.us/lean-tools/scamper-technique/ [Accessed: Apr. 12, 2025].</p>
         
