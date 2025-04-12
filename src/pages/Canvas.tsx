@@ -591,7 +591,7 @@ const CanvasNavigator: React.FC = () => {
                 createPanelWithPosition('measurementMatrix', 'CTMF#3 Measurement Matrix', <MeasurementMatrix />, { x: 5 + 5, y: 5.5 }),
                 createPanelWithPosition('position', 'Position', <PositionContent />, { x: 5 + 0, y: 0 }),
                 createPanelWithPosition('bike', 'Bike', <BikeContent />, { x: 5 + -2, y: -2 }),
-                createPanelWithPosition('hanger', 'Hanger', <HangerContent />, { x: 5 + 2, y: -2 }),
+                createPanelWithPosition('hanger', 'Hanger', <HangerContent />, { x: 5 + 2, y: -2.5 }),
                 createPanelWithPosition('bridge', 'Bridge', <BridgeContent />, { x: 5 + 0, y: -3 }),
                 createPanelWithPosition('references', 'References', <ReferencesContent />, { x: 5 + 0, y: 6 }), // Add this line
               ];

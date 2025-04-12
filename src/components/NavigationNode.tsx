@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 
 interface NavigationNodeProps {
   targetId: string;
@@ -12,16 +12,10 @@ const NavigationNode: React.FC<NavigationNodeProps> = ({
   targetId, 
   destinationId,
   onNavigate, 
-  registerNode,
   children 
 }) => {
   const nodeRef = useRef<HTMLSpanElement>(null);
   
-  useEffect(() => {
-    // No need to register navigation nodes separately as connections
-    // will now be drawn between destination nodes
-    return () => {};
-  }, []);
 
   return (
     <span 

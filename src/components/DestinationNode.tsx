@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 
 interface DestinationNodeProps {
   id: string;
-  registerNode: (id: string, element: HTMLElement) => void;
+  registerNode: (id: string, element: HTMLElement | null) => void;
   children?: React.ReactNode;
 }
 

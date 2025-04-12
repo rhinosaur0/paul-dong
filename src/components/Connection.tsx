@@ -29,7 +29,7 @@ const Connection: React.FC<ConnectionProps> = ({
 }) => {
   const { nodes } = useConnections();
   const [line, setLine] = useState<Line | null>(null);
-  const rafRef = useRef<number>();
+  const rafRef = useRef<number>(0);
   const lastUpdateRef = useRef<number>(0);
   const svgRef = useRef<SVGSVGElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
@@ -98,9 +98,6 @@ const Connection: React.FC<ConnectionProps> = ({
         midY2 = sourceY + (targetY - sourceY) * 0.67;
       }
       
-      // Create the path for the connection with rounder curves
-      // Increase the curvature radius for smoother corners
-      const curveRadius = 30; // Increased from 15 for rounder corners
       
       // Calculate control points for the curves
       let pathData;
